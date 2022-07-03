@@ -1,35 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
-import {IAccount} from '../shared/types';
+import useAccount from '../hooks/useAccount';
+import {getSavingsAccount, setBalance, updateSavings} from '../lib/queries';
 
 const AddSalary = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number>(0);
-  const [account, setAccount] = useState<IAccount | null>(null);
-
-  const fetchAccount = async () => {
-    if (!supabaseClient) {
-      return;
-    }
-
-    const {data} = await supabaseClient
-      .from('accounts')
-      .select()
-      .filter('id', 'eq', id)
-      .limit(1);
-
-    if (data && data.length === 1) {
-      setAccount(data[0]);
-    }
-  };
-
-  useEffect(() => {
-    fetchAccount();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const {account} = useAccount({id});
 
   const addSalary = async () => {
     if (!supabaseClient || !account) {
@@ -37,33 +18,19 @@ const AddSalary = () => {
     }
 
     try {
-      const {data} = await supabaseClient
-        .from('accounts')
-        .select('id, name, balance, created_at')
-        .not('id', 'eq', id);
+      // get savings account
+      const savingsAccount = await getSavingsAccount();
 
-      if (!data || data.length < 1) {
+      if (!savingsAccount) {
         console.log('Missing savings account.');
         return;
       }
 
-      const savingsAccount = data[0];
-
       // add what's left on the account to the savings account balance
-      await supabaseClient
-        .from('accounts')
-        .update({
-          balance: account.balance + savingsAccount.balance,
-        })
-        .match({id: savingsAccount.id});
+      await updateSavings({mainAccount: account, savingsAccount});
 
       // add only salary to the main account
-      await supabaseClient
-        .from('accounts')
-        .update({
-          balance: amount,
-        })
-        .match({id});
+      await setBalance({id: account.id, balance: amount});
 
       navigate(`/account/${id}`);
     } catch (e) {
@@ -78,7 +45,7 @@ const AddSalary = () => {
 
   return (
     <View>
-      <Header />
+      <Header id={id} />
       <Text>AddSalary</Text>
 
       <TextInput
