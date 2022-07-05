@@ -4,13 +4,13 @@ import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
 import useAccount from '../hooks/useAccount';
-import {getSavingsAccount, setBalance, updateSavings} from '../lib/queries';
+import {updateAccount} from '../lib/queries';
 
 const AddSalary = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number>(0);
-  const {account} = useAccount({id});
+  const {account} = useAccount();
 
   const addSalary = async () => {
     if (!supabaseClient || !account) {
@@ -18,21 +18,10 @@ const AddSalary = () => {
     }
 
     try {
-      // get savings account
-      const savingsAccount = await getSavingsAccount();
-
-      if (!savingsAccount) {
-        console.log('Missing savings account.');
-        return;
-      }
-
-      // add what's left on the account to the savings account balance
-      await updateSavings({mainAccount: account, savingsAccount});
-
-      // add only salary to the main account
-      await setBalance({id: account.id, balance: amount});
-
-      navigate(`/account/${id}`);
+      const balance = amount;
+      const savings = account.savings + account.balance;
+      await updateAccount({id: account.id, balance, savings});
+      navigate('/');
     } catch (e) {
       console.error(e);
     }

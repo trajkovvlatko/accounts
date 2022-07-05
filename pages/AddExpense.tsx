@@ -4,13 +4,13 @@ import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
 import useAccount from '../hooks/useAccount';
-import {addTransaction, setBalance} from '../lib/queries';
+import {addTransaction, updateAccount} from '../lib/queries';
 
 const AddExpense = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number>(0);
-  const {account} = useAccount({id});
+  const {account} = useAccount();
 
   const addExpense = async () => {
     if (!supabaseClient || !account) {
@@ -18,10 +18,11 @@ const AddExpense = () => {
     }
 
     try {
+      const balance = account.balance - amount;
+      const savings = account.savings;
+      await updateAccount({id: account.id, balance, savings});
       await addTransaction({id: account.id, amount});
-      await setBalance({id: account.id, balance: account.balance - amount});
-
-      navigate(`/account/${id}`);
+      navigate('/');
     } catch (e) {
       console.error(e);
     }

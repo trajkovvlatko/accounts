@@ -2,32 +2,29 @@ import {useEffect, useState} from 'react';
 import supabaseClient from '../lib/supabaseClient';
 import {IAccount} from '../shared/types';
 
-interface IProps {
-  id?: string;
-}
-
-const useAccount = ({id}: IProps) => {
+const useAccount = () => {
   const [account, setAccount] = useState<IAccount | null>(null);
 
   const fetchAccount = async () => {
-    if (!supabaseClient || !id) {
+    if (!supabaseClient) {
+      console.error('No supabase client.');
       return;
     }
 
-    const {data} = await supabaseClient
-      .from('accounts')
-      .select()
-      .filter('id', 'eq', id)
-      .limit(1);
+    try {
+      const {data} = await supabaseClient.from('accounts').select();
 
-    if (data && data.length === 1) {
-      setAccount(data[0]);
+      if (data && data.length > 0) {
+        setAccount(data[0]);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   useEffect(() => {
     fetchAccount();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return {account};
 };

@@ -9,11 +9,8 @@ interface IProps {
 const Header = ({id}: IProps) => {
   return (
     <View>
-      <Link to="/">
-        <Text>Home</Text>
-      </Link>
       {id && (
-        <Link to={`/account/${id}`}>
+        <Link to="/">
           <Text>Back</Text>
         </Link>
       )}
