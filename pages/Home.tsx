@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, Pressable, Text, View} from 'react-native';
 import Header from '../components/Header';
 import useAccount from '../hooks/useAccount';
 import useTransactions from '../hooks/useTransactions';
 import {useNavigate} from 'react-router-native';
+import styles from '../shared/styles';
 
 const Home = () => {
   const {account} = useAccount();
@@ -23,29 +24,44 @@ const Home = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header />
-      <View key={`account-link-${account.id}`}>
-        <Text>Balance: {account.balance}</Text>
-        <Text>Savings: {account.savings}</Text>
+
+      <View style={styles.wrapper}>
+        <Text style={styles.title}>Momentalna sostojba</Text>
+
+        <View style={styles.balanceWrapper}>
+          <Text style={styles.text}>Balance:</Text>
+          <Text style={styles.text}>{account.balance}</Text>
+        </View>
+        <View style={styles.balanceWrapper}>
+          <Text style={styles.text}>Savings:</Text>
+          <Text style={styles.text}>{account.savings}</Text>
+        </View>
+
+        <View style={styles.buttonsWrapper}>
+          <Pressable onPress={addSalary} style={styles.addSalaryButton}>
+            <Text style={styles.addSalaryButtonText}>Add salary</Text>
+          </Pressable>
+          <Pressable onPress={addExpense} style={styles.addExpenseButton}>
+            <Text style={styles.addExpenseButtonText}>Add expense</Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.separator} />
+
+        <Text style={styles.title}>Latest transactions</Text>
+        {transactions.map(transaction => {
+          return (
+            <View key={`transaction-${transaction.id}`}>
+              <Text>
+                {transaction.amount} -{' '}
+                {new Date(transaction.created_at).toLocaleString()}
+              </Text>
+            </View>
+          );
+        })}
       </View>
-      <Text>------------------</Text>
-      <View>
-        <Button onPress={addSalary} title="Add salary" />
-        <Button onPress={addExpense} title="Add expense" />
-      </View>
-      <Text>------------------</Text>
-      <Text>Latest transactions</Text>
-      {transactions.map(transaction => {
-        return (
-          <View key={`transaction-${transaction.id}`}>
-            <Text>
-              {transaction.amount} -{' '}
-              {new Date(transaction.created_at).toLocaleString()}
-            </Text>
-          </View>
-        );
-      })}
     </View>
   );
 };
