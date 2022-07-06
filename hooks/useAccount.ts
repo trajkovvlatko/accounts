@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
 import supabaseClient from '../lib/supabaseClient';
 import {IAccount} from '../shared/types';
 
@@ -18,8 +19,9 @@ const useAccount = () => {
       if (data && data.length > 0) {
         setAccount(data[0]);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      console.error(e);
+      Alert.alert('Error', e.message);
     }
   };
 

@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
@@ -18,6 +25,11 @@ const Update = () => {
       return;
     }
 
+    if (amount < 0) {
+      Alert.alert('Проблем со сума', 'Внесената сума е под 0.');
+      return;
+    }
+
     try {
       if (action === 'expense') {
         const balance = account.balance - amount;
@@ -32,8 +44,9 @@ const Update = () => {
         await updateAccount({id: account.id, balance, savings});
       }
       navigate('/');
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      Alert.alert('Error', e.message);
     }
   };
 
