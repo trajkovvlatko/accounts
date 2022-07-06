@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Button,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
@@ -14,22 +7,28 @@ import useAccount from '../hooks/useAccount';
 import {addTransaction, updateAccount} from '../lib/queries';
 import styles from '../shared/styles';
 
-const AddExpense = () => {
-  const {id} = useParams();
+const Update = () => {
+  const {id, action} = useParams();
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number>(0);
   const {account} = useAccount();
 
-  const addExpense = async () => {
+  const update = async () => {
     if (!supabaseClient || !account) {
       return;
     }
 
     try {
-      const balance = account.balance - amount;
-      const savings = account.savings;
-      await updateAccount({id: account.id, balance, savings});
-      await addTransaction({id: account.id, amount});
+      if (action === 'expense') {
+        const balance = account.balance - amount;
+        const savings = account.savings;
+        await updateAccount({id: account.id, balance, savings});
+        await addTransaction({id: account.id, amount});
+      } else {
+        const balance = amount;
+        const savings = account.savings + account.balance;
+        await updateAccount({id: account.id, balance, savings});
+      }
       navigate('/');
     } catch (e) {
       console.error(e);
@@ -47,6 +46,9 @@ const AddExpense = () => {
         <Header id={id} />
 
         <View style={styles.updateWrapper}>
+          <Text style={styles.title}>
+            {action === 'expense' ? 'Vnesi trosoci' : 'Vnesi plata'}
+          </Text>
           <Text style={styles.text}>Suma</Text>
           <TextInput
             style={styles.textInput}
@@ -54,7 +56,7 @@ const AddExpense = () => {
             keyboardType="numeric"
             onChangeText={onChangeText}
           />
-          <Pressable onPress={addExpense} style={styles.saveButton}>
+          <Pressable onPress={update} style={styles.saveButton}>
             <Text style={styles.addExpenseButtonText}>Zacuvaj</Text>
           </Pressable>
         </View>
@@ -62,4 +64,4 @@ const AddExpense = () => {
     </View>
   );
 };
-export default AddExpense;
+export default Update;

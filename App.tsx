@@ -1,9 +1,8 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import Home from './pages/Home';
+import Update from './pages/Update';
 import {NativeRouter, Routes, Route} from 'react-router-native';
-import AddExpense from './pages/AddExpense';
-import AddSalary from './pages/AddSalary';
 
 const App = () => {
   return (
@@ -12,8 +11,7 @@ const App = () => {
         <StatusBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/add-expense/:id" element={<AddExpense />} />
-          <Route path="/add-salary/:id" element={<AddSalary />} />
+          <Route path="/update/:action/:id" element={<Update />} />
         </Routes>
       </SafeAreaView>
     </NativeRouter>

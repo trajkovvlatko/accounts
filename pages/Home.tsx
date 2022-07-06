@@ -18,11 +18,11 @@ const Home = () => {
   }
 
   const addSalary = () => {
-    navigate(`/add-salary/${account.id}`);
+    navigate(`/update/salary/${account.id}`);
   };
 
   const addExpense = () => {
-    navigate(`/add-expense/${account.id}`);
+    navigate(`/update/expense/${account.id}`);
   };
 
   return (
