@@ -22,8 +22,10 @@ const Update = () => {
       if (action === 'expense') {
         const balance = account.balance - amount;
         const savings = account.savings;
-        await updateAccount({id: account.id, balance, savings});
-        await addTransaction({id: account.id, amount});
+        await Promise.all([
+          updateAccount({id: account.id, balance, savings}),
+          addTransaction({id: account.id, amount}),
+        ]);
       } else {
         const balance = amount;
         const savings = account.savings + account.balance;
@@ -47,9 +49,9 @@ const Update = () => {
 
         <View style={styles.updateWrapper}>
           <Text style={styles.title}>
-            {action === 'expense' ? 'Vnesi trosoci' : 'Vnesi plata'}
+            {action === 'expense' ? 'Внеси трошоци' : 'Внеси плата'}
           </Text>
-          <Text style={styles.text}>Suma</Text>
+          <Text style={styles.text}>Сума</Text>
           <TextInput
             style={styles.textInput}
             value={amount.toString()}
@@ -57,7 +59,7 @@ const Update = () => {
             onChangeText={onChangeText}
           />
           <Pressable onPress={update} style={styles.saveButton}>
-            <Text style={styles.addExpenseButtonText}>Zacuvaj</Text>
+            <Text style={styles.addExpenseButtonText}>Зачувај</Text>
           </Pressable>
         </View>
       </ScrollView>

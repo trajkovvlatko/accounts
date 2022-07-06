@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize,
   },
+  deleteText: {
+    fontSize: 14,
+    color: primaryColor,
+  },
   buttonsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: extraBold,
   },
   transactionsHeaderDate: {
-    width: '30%',
+    width: '50%',
     fontWeight: extraBold,
   },
   transactionsRow: {
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
     width: '30%',
   },
   transactionsRowDate: {
-    width: '30%',
+    width: '50%',
   },
   updateContainer: {
     flexDirection: 'column',

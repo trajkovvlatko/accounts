@@ -3,6 +3,7 @@ import supabaseClient from '../lib/supabaseClient';
 import {ITransaction} from '../shared/types';
 
 const useTransactions = () => {
+  const [reload, setReload] = useState(false);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
   const fetchTransactions = async () => {
@@ -27,9 +28,11 @@ const useTransactions = () => {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [reload]);
 
-  return {transactions};
+  const triggerReload = () => setReload(oldVal => !oldVal);
+
+  return {transactions, triggerReload};
 };
 
 export default useTransactions;

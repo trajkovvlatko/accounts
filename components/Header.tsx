@@ -13,13 +13,13 @@ const Header = ({id}: IProps) => {
       <Link to="/">
         <View style={styles.headerLink}>
           <Text style={styles.headerIcon}>{'<'}</Text>
-          <Text style={styles.headerText}>Nazad</Text>
+          <Text style={styles.headerText}>Назад</Text>
         </View>
       </Link>
     </View>
   ) : (
     <View style={styles.header}>
-      <Text style={styles.headerText}>Pocetna</Text>
+      <Text style={styles.headerText}>Почетна</Text>
     </View>
   );
 };

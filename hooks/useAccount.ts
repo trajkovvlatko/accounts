@@ -3,6 +3,7 @@ import supabaseClient from '../lib/supabaseClient';
 import {IAccount} from '../shared/types';
 
 const useAccount = () => {
+  const [reload, setReload] = useState(false);
   const [account, setAccount] = useState<IAccount | null>(null);
 
   const fetchAccount = async () => {
@@ -24,9 +25,11 @@ const useAccount = () => {
 
   useEffect(() => {
     fetchAccount();
-  }, []);
+  }, [reload]);
 
-  return {account};
+  const triggerReload = () => setReload(oldVal => !oldVal);
+
+  return {account, triggerReload};
 };
 
 export default useAccount;

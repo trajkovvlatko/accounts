@@ -37,3 +37,12 @@ export const addTransaction = async ({
     amount,
   });
 };
+
+export const deleteTransaction = async ({id}: {id: string}) => {
+  if (!supabaseClient) {
+    console.log('No supabaseClient');
+    return null;
+  }
+
+  return await supabaseClient.from('transactions').delete().match({id});
+};

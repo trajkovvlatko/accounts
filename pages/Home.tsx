@@ -6,11 +6,11 @@ import useTransactions from '../hooks/useTransactions';
 import {useNavigate} from 'react-router-native';
 import styles from '../shared/styles';
 import TransactionsHeader from '../components/TransactionsHeader';
-import {toDateString} from '../shared/helpers';
+import TransactionRow from '../components/TransactionRow';
 
 const Home = () => {
-  const {account} = useAccount();
-  const {transactions} = useTransactions();
+  const {account, triggerReload: reloadAccount} = useAccount();
+  const {transactions, triggerReload: reloadTransactions} = useTransactions();
   const navigate = useNavigate();
 
   if (!account) {
@@ -25,36 +25,41 @@ const Home = () => {
     navigate(`/update/expense/${account.id}`);
   };
 
+  const onDelete = () => {
+    reloadAccount();
+    reloadTransactions();
+  };
+
   return (
     <View style={styles.homeContainer}>
       <ScrollView style={styles.scrollView}>
         <Header />
 
         <View style={styles.wrapper}>
-          <Text style={styles.title}>Momentalna sostojba</Text>
+          <Text style={styles.title}>Моментална состојба</Text>
 
           <View style={styles.balanceWrapper}>
-            <Text style={styles.text}>Balance:</Text>
+            <Text style={styles.text}>Сметка:</Text>
             <Text style={styles.text}>{account.balance}</Text>
           </View>
           <View style={styles.balanceWrapper}>
-            <Text style={styles.text}>Savings:</Text>
+            <Text style={styles.text}>Заштеда:</Text>
             <Text style={styles.text}>{account.savings}</Text>
           </View>
 
           <View style={styles.buttonsWrapper}>
             <Pressable onPress={addSalary} style={styles.addSalaryButton}>
-              <Text style={styles.addSalaryButtonText}>Add salary</Text>
+              <Text style={styles.addSalaryButtonText}>Внеси плата</Text>
             </Pressable>
             <Pressable onPress={addExpense} style={styles.addExpenseButton}>
-              <Text style={styles.addExpenseButtonText}>Add expense</Text>
+              <Text style={styles.addExpenseButtonText}>Внеси трошоци</Text>
             </Pressable>
           </View>
         </View>
       </ScrollView>
 
       <View style={styles.transactionsWrapper}>
-        <Text style={styles.title}>Latest transactions</Text>
+        <Text style={styles.title}>Последни промени</Text>
         <FlatList
           data={transactions}
           ListHeaderComponent={TransactionsHeader}
@@ -62,16 +67,11 @@ const Home = () => {
           stickyHeaderIndices={[0]}
           renderItem={row => {
             return (
-              <View
-                key={`transaction-${row.item.id}`}
-                style={styles.transactionsRow}>
-                <Text style={styles.transactionsRowAmount}>
-                  {row.item.amount}
-                </Text>
-                <Text style={styles.transactionsRowDate}>
-                  {toDateString(row.item.created_at)}
-                </Text>
-              </View>
+              <TransactionRow
+                onDelete={onDelete}
+                account={account}
+                item={row.item}
+              />
             );
           }}
           keyExtractor={item => item.id}
