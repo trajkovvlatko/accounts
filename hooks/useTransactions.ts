@@ -15,6 +15,7 @@ const useTransactions = () => {
       const {data} = await supabaseClient
         .from('transactions')
         .select()
+        .limit(100)
         .order('created_at', {ascending: false});
       if (data && data.length > 0) {
         setTransactions(data);

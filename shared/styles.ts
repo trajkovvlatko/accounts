@@ -6,7 +6,13 @@ const textColor = '#444444';
 const fontSize = 16;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  scrollView: {
+    height: '50%',
+  },
   wrapper: {
     padding: 32,
   },
@@ -73,6 +79,42 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 100,
+  },
+  transactionsWrapper: {
+    height: '50%',
+    paddingBottom: 32,
+    paddingHorizontal: 32,
+  },
+  transactionsHeader: {
+    backgroundColor: secondaryColor,
+    flexDirection: 'row',
+    borderColor: textColor,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  transactionsHeaderAmount: {
+    width: '30%',
+    fontWeight: '900',
+  },
+  transactionsHeaderDate: {
+    width: '30%',
+    fontWeight: '900',
+  },
+  transactionsRow: {
+    flexDirection: 'row',
+    borderColor: textColor,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  transactionsRowAmount: {
+    width: '30%',
+  },
+  transactionsRowDate: {
+    width: '30%',
   },
 });
 

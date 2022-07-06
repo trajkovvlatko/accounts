@@ -10,13 +10,11 @@ const App = () => {
     <NativeRouter>
       <SafeAreaView>
         <StatusBar />
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add-expense/:id" element={<AddExpense />} />
-            <Route path="/add-salary/:id" element={<AddSalary />} />
-          </Routes>
-        </ScrollView>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/add-expense/:id" element={<AddExpense />} />
+          <Route path="/add-salary/:id" element={<AddSalary />} />
+        </Routes>
       </SafeAreaView>
     </NativeRouter>
   );
