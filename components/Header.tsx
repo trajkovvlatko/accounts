@@ -8,15 +8,18 @@ interface IProps {
 }
 
 const Header = ({id}: IProps) => {
-  return (
+  return id ? (
+    <View style={[styles.header, styles.backHeader]}>
+      <Link to="/">
+        <View style={styles.headerLink}>
+          <Text style={styles.headerIcon}>{'<'}</Text>
+          <Text style={styles.headerText}>Nazad</Text>
+        </View>
+      </Link>
+    </View>
+  ) : (
     <View style={styles.header}>
-      {id ? (
-        <Link to="/">
-          <Text style={styles.headerText}>Back</Text>
-        </Link>
-      ) : (
-        <Text style={styles.headerText}>Pocetna</Text>
-      )}
+      <Text style={styles.headerText}>Pocetna</Text>
     </View>
   );
 };

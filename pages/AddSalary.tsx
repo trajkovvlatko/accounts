@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Button, ScrollView, Text, TextInput, View} from 'react-native';
 import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
 import useAccount from '../hooks/useAccount';
 import {updateAccount} from '../lib/queries';
+import styles from '../shared/styles';
 
 const AddSalary = () => {
   const {id} = useParams();
@@ -33,16 +34,18 @@ const AddSalary = () => {
   };
 
   return (
-    <View>
-      <Header id={id} />
-      <Text>AddSalary</Text>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Header id={id} />
+        <Text>AddSalary</Text>
 
-      <TextInput
-        value={amount.toString()}
-        keyboardType="numeric"
-        onChangeText={onChangeText}
-      />
-      <Button title="Add salary" onPress={addSalary} />
+        <TextInput
+          value={amount.toString()}
+          keyboardType="numeric"
+          onChangeText={onChangeText}
+        />
+        <Button title="Add salary" onPress={addSalary} />
+      </ScrollView>
     </View>
   );
 };

@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {
+  Button,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Header from '../components/Header';
 import {useParams, useNavigate} from 'react-router-native';
 import supabaseClient from '../lib/supabaseClient';
 import useAccount from '../hooks/useAccount';
 import {addTransaction, updateAccount} from '../lib/queries';
+import styles from '../shared/styles';
 
 const AddExpense = () => {
   const {id} = useParams();
@@ -34,16 +42,23 @@ const AddExpense = () => {
   };
 
   return (
-    <View>
-      <Header id={id} />
-      <Text>AddExpense</Text>
+    <View style={styles.updateContainer}>
+      <ScrollView style={styles.scrollView}>
+        <Header id={id} />
 
-      <TextInput
-        value={amount.toString()}
-        keyboardType="numeric"
-        onChangeText={onChangeText}
-      />
-      <Button title="Add expense" onPress={addExpense} />
+        <View style={styles.updateWrapper}>
+          <Text style={styles.text}>Suma</Text>
+          <TextInput
+            style={styles.textInput}
+            value={amount.toString()}
+            keyboardType="numeric"
+            onChangeText={onChangeText}
+          />
+          <Pressable onPress={addExpense} style={styles.saveButton}>
+            <Text style={styles.addExpenseButtonText}>Zacuvaj</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </View>
   );
 };

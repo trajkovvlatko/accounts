@@ -1,12 +1,16 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 const primaryColor = '#A358ED';
 const secondaryColor = '#FFFFFF';
 const textColor = '#444444';
+const borderColor = '#C7C7C7';
 const fontSize = 16;
+const bold = '500';
+const extraBold = '900';
+const padding = 32;
 
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     display: 'flex',
     flexDirection: 'column',
   },
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   wrapper: {
-    padding: 32,
+    padding,
   },
   header: {
     flex: 1,
@@ -23,14 +27,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backHeader: {
+    alignItems: 'flex-start',
+    paddingLeft: padding,
+  },
+  headerIcon: {
+    color: secondaryColor,
+    fontSize,
+    paddingRight: 16,
+    fontWeight: bold,
+  },
+  headerLink: {
+    flexDirection: 'row',
+    fontWeight: bold,
+  },
   headerText: {
     color: secondaryColor,
+    fontSize,
+    fontWeight: bold,
   },
   title: {
     color: textColor,
     textTransform: 'uppercase',
     fontSize,
-    fontWeight: '500',
+    fontWeight: bold,
     marginBottom: 20,
   },
   balanceWrapper: {
@@ -82,13 +102,13 @@ const styles = StyleSheet.create({
   },
   transactionsWrapper: {
     height: '50%',
-    paddingBottom: 32,
-    paddingHorizontal: 32,
+    paddingBottom: padding,
+    paddingHorizontal: padding,
   },
   transactionsHeader: {
     backgroundColor: secondaryColor,
     flexDirection: 'row',
-    borderColor: textColor,
+    borderColor,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     paddingTop: 8,
@@ -96,15 +116,15 @@ const styles = StyleSheet.create({
   },
   transactionsHeaderAmount: {
     width: '30%',
-    fontWeight: '900',
+    fontWeight: extraBold,
   },
   transactionsHeaderDate: {
     width: '30%',
-    fontWeight: '900',
+    fontWeight: extraBold,
   },
   transactionsRow: {
     flexDirection: 'row',
-    borderColor: textColor,
+    borderColor,
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingTop: 8,
@@ -115,6 +135,33 @@ const styles = StyleSheet.create({
   },
   transactionsRowDate: {
     width: '30%',
+  },
+  updateContainer: {
+    flexDirection: 'column',
+    height: Dimensions.get('screen').height,
+  },
+  updateWrapper: {
+    padding,
+    paddingTop: 200,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 20,
+    fontSize,
+    paddingHorizontal: 16,
+  },
+  saveButton: {
+    borderWidth: 2,
+    borderColor: primaryColor,
+    borderRadius: 20,
+    backgroundColor: primaryColor,
+    height: 42,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
 });
 
