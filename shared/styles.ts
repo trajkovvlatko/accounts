@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   homeContainer: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: secondaryColor,
   },
   scrollView: {
     height: '50%',
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
   updateContainer: {
     flexDirection: 'column',
     height: Dimensions.get('screen').height,
+    backgroundColor: secondaryColor,
   },
   updateWrapper: {
     padding,
