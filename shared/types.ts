@@ -10,3 +10,5 @@ export interface ITransaction {
   amount: number;
   created_at: string;
 }
+
+export type TAction = 'expense' | 'savings';

@@ -1,59 +1,13 @@
-import React, {useState} from 'react';
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import React from 'react';
+import {ScrollView, Text, View} from 'react-native';
 import Header from '../components/Header';
-import {useParams, useNavigate} from 'react-router-native';
-import supabaseClient from '../lib/supabaseClient';
-import useAccount from '../hooks/useAccount';
-import {addTransaction, updateAccount} from '../lib/queries';
+import {useParams} from 'react-router-native';
 import styles from '../shared/styles';
+import UpdateForm from '../components/UpdateForm';
+import {TAction} from '../shared/types';
 
 const Update = () => {
   const {id, action} = useParams();
-  const navigate = useNavigate();
-  const [amount, setAmount] = useState<number>(0);
-  const {account} = useAccount();
-
-  const update = async () => {
-    if (!supabaseClient || !account) {
-      return;
-    }
-
-    if (amount < 0) {
-      Alert.alert('Проблем со сума', 'Внесената сума е под 0.');
-      return;
-    }
-
-    try {
-      if (action === 'expense') {
-        const balance = account.balance - amount;
-        const savings = account.savings;
-        await Promise.all([
-          updateAccount({id: account.id, balance, savings}),
-          addTransaction({id: account.id, amount}),
-        ]);
-      } else {
-        const balance = amount;
-        const savings = account.savings + account.balance;
-        await updateAccount({id: account.id, balance, savings});
-      }
-      navigate('/');
-    } catch (e: any) {
-      console.error(e);
-      Alert.alert('Error', e.message);
-    }
-  };
-
-  const onChangeText = (value: string) => {
-    const num = value ? parseInt(value, 10) : 0;
-    setAmount(num);
-  };
 
   return (
     <View style={styles.updateContainer}>
@@ -64,16 +18,7 @@ const Update = () => {
           <Text style={styles.title}>
             {action === 'expense' ? 'Внеси трошоци' : 'Внеси плата'}
           </Text>
-          <Text style={styles.text}>Сума</Text>
-          <TextInput
-            style={styles.textInput}
-            value={amount.toString()}
-            keyboardType="numeric"
-            onChangeText={onChangeText}
-          />
-          <Pressable onPress={update} style={styles.saveButton}>
-            <Text style={styles.addExpenseButtonText}>Зачувај</Text>
-          </Pressable>
+          <UpdateForm action={action as TAction} />
         </View>
       </ScrollView>
     </View>
