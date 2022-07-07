@@ -26,6 +26,7 @@ const TransactionsList = ({account, transactions, onDelete}: IProps) => {
               onDelete={onDelete}
               account={account}
               item={row.item}
+              index={row.index}
             />
           );
         }}

@@ -9,9 +9,10 @@ interface IProps {
   account: IAccount;
   item: ITransaction;
   onDelete: () => void;
+  index: number;
 }
 
-const TransactionRow = ({account, item, onDelete}: IProps) => {
+const TransactionRow = ({account, item, onDelete, index}: IProps) => {
   const showAlert = () => {
     Alert.alert('Избриши трансакција?', '', [
       {
@@ -34,8 +35,13 @@ const TransactionRow = ({account, item, onDelete}: IProps) => {
     onDelete();
   };
 
+  const rowStyles = [
+    styles.transactionsRow,
+    index % 2 === 0 ? styles.transactionsEvenRow : {},
+  ];
+
   return (
-    <View key={`transaction-${item.id}`} style={styles.transactionsRow}>
+    <View key={`transaction-${item.id}`} style={rowStyles}>
       <Text style={styles.transactionsRowAmount}>{item.amount}</Text>
       <Text style={styles.transactionsRowDate}>
         {toDateString(item.created_at)}

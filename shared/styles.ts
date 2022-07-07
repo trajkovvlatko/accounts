@@ -4,6 +4,7 @@ const primaryColor = '#A358ED';
 const secondaryColor = '#FFFFFF';
 const textColor = '#444444';
 const borderColor = '#C7C7C7';
+const rowColor = '#F1F1F1';
 const fontSize = 16;
 const bold = '500';
 const extraBold = '900';
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
   transactionsHeaderAmount: {
     width: '30%',
     fontWeight: extraBold,
+    paddingLeft: 8,
   },
   transactionsHeaderDate: {
     width: '50%',
@@ -135,8 +137,13 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
   },
+  transactionsEvenRow: {
+    backgroundColor: rowColor,
+  },
   transactionsRowAmount: {
     width: '30%',
+    fontWeight: bold,
+    paddingLeft: 8,
   },
   transactionsRowDate: {
     width: '50%',
