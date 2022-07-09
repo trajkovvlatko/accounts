@@ -7,3 +7,7 @@ export const toDateString = (val: string): string => {
 
   return `${day}.${month}.${date.getFullYear()} ${hour}:${minute}`;
 };
+
+export const currencyFormat = (num: number): string => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+};

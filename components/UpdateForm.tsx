@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-native';
 import useAccount from '../hooks/useAccount';
 import {Alert, Pressable, Text, TextInput} from 'react-native';
@@ -13,11 +13,12 @@ interface IProps {
 
 const UpdateForm = ({action}: IProps) => {
   const [amount, setAmount] = useState<number>(0);
+  const updatingRef = useRef(false);
   const {account} = useAccount();
   const navigate = useNavigate();
 
   const update = async () => {
-    if (!supabaseClient || !account) {
+    if (!supabaseClient || !account || updatingRef.current) {
       return;
     }
 
@@ -27,6 +28,7 @@ const UpdateForm = ({action}: IProps) => {
     }
 
     try {
+      updatingRef.current = true;
       if (action === 'expense') {
         const balance = account.balance - amount;
         const savings = account.savings;

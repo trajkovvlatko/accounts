@@ -1,7 +1,7 @@
 import React from 'react';
 import {Alert, Pressable, Text, View} from 'react-native';
 import {updateAccount, deleteTransaction} from '../lib/queries';
-import {toDateString} from '../shared/helpers';
+import {currencyFormat, toDateString} from '../shared/helpers';
 import styles from '../shared/styles';
 import {IAccount, ITransaction} from '../shared/types';
 
@@ -42,12 +42,14 @@ const TransactionRow = ({account, item, onDelete, index}: IProps) => {
 
   return (
     <View key={`transaction-${item.id}`} style={rowStyles}>
-      <Text style={styles.transactionsRowAmount}>{item.amount}</Text>
+      <Text style={styles.transactionsRowAmount}>
+        {currencyFormat(item.amount)}
+      </Text>
       <Text style={styles.transactionsRowDate}>
         {toDateString(item.created_at)}
       </Text>
       <Pressable onPress={showAlert}>
-        <Text style={styles.deleteText}>Избриши</Text>
+        <Text style={styles.deleteText}>&times;</Text>
       </Pressable>
     </View>
   );
