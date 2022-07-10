@@ -3,7 +3,11 @@ import {Alert} from 'react-native';
 import supabaseClient from '../lib/supabaseClient';
 import {IAccount} from '../shared/types';
 
-const useAccount = () => {
+interface IProps {
+  userId?: string;
+}
+
+const useAccount = ({userId}: IProps) => {
   const [reload, setReload] = useState(false);
   const [account, setAccount] = useState<IAccount | null>(null);
 
@@ -13,15 +17,22 @@ const useAccount = () => {
       return;
     }
 
-    try {
-      const {data} = await supabaseClient.from('accounts').select();
+    if (!userId) {
+      console.error('No user id.');
+      return;
+    }
 
-      if (data && data.length > 0) {
-        setAccount(data[0]);
-      }
-    } catch (e: any) {
-      console.error(e);
-      Alert.alert('Error', e.message);
+    const {data, error} = await supabaseClient
+      .from('accounts')
+      .select()
+      .match({user_id: userId});
+
+    if (data) {
+      setAccount(data[0]);
+    }
+    if (error) {
+      console.error(error);
+      Alert.alert('Error', error.message);
     }
   };
 

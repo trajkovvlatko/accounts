@@ -22,6 +22,18 @@ const styles = StyleSheet.create({
   wrapper: {
     padding,
   },
+  selectAccountWrapper: {
+    flexDirection: 'column',
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: Dimensions.get('window').width,
+  },
+  selectAccountButtonWrapper: {
+    paddingTop: padding,
+    width: '100%',
+    alignItems: 'center',
+  },
   header: {
     flex: 1,
     height: 45,

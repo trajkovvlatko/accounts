@@ -8,11 +8,12 @@ import {IAccount, ITransaction} from '../shared/types';
 interface IProps {
   account: IAccount;
   item: ITransaction;
+  userId: string;
   onDelete: () => void;
   index: number;
 }
 
-const TransactionRow = ({account, item, onDelete, index}: IProps) => {
+const TransactionRow = ({account, item, userId, onDelete, index}: IProps) => {
   const showAlert = () => {
     Alert.alert('Избриши трансакција?', '', [
       {
@@ -28,8 +29,8 @@ const TransactionRow = ({account, item, onDelete, index}: IProps) => {
     const savings = account.savings;
 
     await Promise.all([
-      updateAccount({id: account.id, balance, savings}),
-      deleteTransaction({id: item.id}),
+      updateAccount({id: account.id, userId, balance, savings}),
+      deleteTransaction({id: item.id, userId}),
     ]);
 
     onDelete();

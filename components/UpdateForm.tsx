@@ -8,13 +8,14 @@ import styles from '../shared/styles';
 import {TAction} from '../shared/types';
 
 interface IProps {
+  userId: string;
   action: TAction;
 }
 
-const UpdateForm = ({action}: IProps) => {
+const UpdateForm = ({userId, action}: IProps) => {
   const [amount, setAmount] = useState<number>(0);
   const updatingRef = useRef(false);
-  const {account} = useAccount();
+  const {account} = useAccount({userId});
   const navigate = useNavigate();
 
   const update = async () => {
@@ -22,8 +23,8 @@ const UpdateForm = ({action}: IProps) => {
       return;
     }
 
-    if (amount < 0) {
-      Alert.alert('Проблем со сума', 'Внесената сума е под 0.');
+    if (amount <= 0) {
+      Alert.alert('Проблем со сума', 'Внесената сума мора да биде над 0.');
       return;
     }
 
@@ -33,15 +34,15 @@ const UpdateForm = ({action}: IProps) => {
         const balance = account.balance - amount;
         const savings = account.savings;
         await Promise.all([
-          updateAccount({id: account.id, balance, savings}),
-          addTransaction({id: account.id, amount}),
+          updateAccount({id: account.id, userId, balance, savings}),
+          addTransaction({id: account.id, userId, amount}),
         ]);
       } else {
         const balance = amount;
         const savings = account.savings + account.balance;
-        await updateAccount({id: account.id, balance, savings});
+        await updateAccount({id: account.id, userId, balance, savings});
       }
-      navigate('/');
+      navigate(`/account/${userId}`);
     } catch (e: any) {
       console.error(e);
       Alert.alert('Error', e.message);

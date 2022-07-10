@@ -5,17 +5,18 @@ import {useNavigate} from 'react-router-native';
 
 interface IProps {
   accountId: string;
+  userId: string;
 }
 
-const AccountButtons = ({accountId}: IProps) => {
+const AccountButtons = ({userId, accountId}: IProps) => {
   const navigate = useNavigate();
 
   const addSalary = () => {
-    navigate(`/update/salary/${accountId}`);
+    navigate(`/account/${userId}/update/salary/${accountId}`);
   };
 
   const addExpense = () => {
-    navigate(`/update/expense/${accountId}`);
+    navigate(`/account/${userId}/update/expense/${accountId}`);
   };
 
   return (

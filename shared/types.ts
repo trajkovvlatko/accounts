@@ -11,4 +11,15 @@ export interface ITransaction {
   created_at: string;
 }
 
+export interface IUser {
+  id: string;
+  name: string;
+}
+
 export type TAction = 'expense' | 'savings';
+
+export enum Page {
+  SELECT_USER,
+  ACCOUNT,
+  UPDATE,
+}

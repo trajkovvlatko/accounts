@@ -3,7 +3,11 @@ import {Alert} from 'react-native';
 import supabaseClient from '../lib/supabaseClient';
 import {ITransaction} from '../shared/types';
 
-const useTransactions = () => {
+interface IProps {
+  userId?: string;
+}
+
+const useTransactions = ({userId}: IProps) => {
   const [reload, setReload] = useState(false);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
@@ -13,18 +17,23 @@ const useTransactions = () => {
       return;
     }
 
-    try {
-      const {data} = await supabaseClient
-        .from('transactions')
-        .select()
-        .limit(100)
-        .order('created_at', {ascending: false});
-      if (data && data.length > 0) {
-        setTransactions(data);
-      }
-    } catch (e: any) {
-      console.error(e);
-      Alert.alert('Error', e.message);
+    if (!userId) {
+      console.error('No user id.');
+      return;
+    }
+
+    const {data, error} = await supabaseClient
+      .from('transactions')
+      .select()
+      .match({user_id: userId})
+      .limit(100)
+      .order('created_at', {ascending: false});
+    if (data) {
+      setTransactions(data);
+    }
+    if (error) {
+      console.error(error);
+      Alert.alert('Error', error.message);
     }
   };
 

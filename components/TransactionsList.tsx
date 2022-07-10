@@ -8,10 +8,16 @@ import TransactionsHeader from './TransactionsHeader';
 interface IProps {
   account: IAccount;
   transactions: ITransaction[];
+  userId: string;
   onDelete: () => void;
 }
 
-const TransactionsList = ({account, transactions, onDelete}: IProps) => {
+const TransactionsList = ({
+  account,
+  transactions,
+  userId,
+  onDelete,
+}: IProps) => {
   return (
     <View style={styles.transactionsWrapper}>
       <Text style={styles.title}>Последни промени</Text>
@@ -25,6 +31,7 @@ const TransactionsList = ({account, transactions, onDelete}: IProps) => {
             <TransactionRow
               onDelete={onDelete}
               account={account}
+              userId={userId}
               item={row.item}
               index={row.index}
             />

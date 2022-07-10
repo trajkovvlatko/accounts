@@ -4,21 +4,25 @@ import Header from '../components/Header';
 import {useParams} from 'react-router-native';
 import styles from '../shared/styles';
 import UpdateForm from '../components/UpdateForm';
-import {TAction} from '../shared/types';
+import {Page, TAction} from '../shared/types';
 
 const Update = () => {
-  const {id, action} = useParams();
+  const {userId, action} = useParams();
+
+  if (!userId) {
+    return null;
+  }
 
   return (
     <View style={styles.updateContainer}>
       <ScrollView style={styles.scrollView}>
-        <Header id={id} />
+        <Header currentPage={Page.UPDATE} userId={userId} />
 
         <View style={styles.updateWrapper}>
           <Text style={styles.title}>
             {action === 'expense' ? 'Внеси трошоци' : 'Внеси плата'}
           </Text>
-          <UpdateForm action={action as TAction} />
+          <UpdateForm userId={userId} action={action as TAction} />
         </View>
       </ScrollView>
     </View>
