@@ -3,7 +3,7 @@ import {Alert} from 'react-native';
 import supabaseClient from '../lib/supabaseClient';
 import {IUser} from '../shared/types';
 
-const useUser = () => {
+const useUsers = () => {
   const [users, setUsers] = useState<IUser[]>([]);
 
   const fetchUsers = async () => {
@@ -29,4 +29,4 @@ const useUser = () => {
   return {users};
 };
 
-export default useUser;
+export default useUsers;

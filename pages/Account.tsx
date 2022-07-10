@@ -1,5 +1,4 @@
-import React from 'react';
-import {useParams} from 'react-router-native';
+import React, {useContext} from 'react';
 import {ScrollView, View} from 'react-native';
 import Header from '../components/Header';
 import useAccount from '../hooks/useAccount';
@@ -9,15 +8,18 @@ import TransactionsList from '../components/TransactionsList';
 import AccountInfo from '../components/AccountInfo';
 import AccountButtons from '../components/AccountButtons';
 import {Page} from '../shared/types';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
-const Home = () => {
-  const {userId} = useParams();
-  const {account, triggerReload: reloadAccount} = useAccount({userId});
+const Account = () => {
+  const {currentUser} = useContext(CurrentUserContext);
+  const {account, triggerReload: reloadAccount} = useAccount({
+    userId: currentUser?.id,
+  });
   const {transactions, triggerReload: reloadTransactions} = useTransactions({
-    userId,
+    userId: currentUser?.id,
   });
 
-  if (!account || !userId) {
+  if (!account || !currentUser?.id) {
     return null;
   }
 
@@ -32,18 +34,22 @@ const Home = () => {
         <Header currentPage={Page.ACCOUNT} />
 
         <View style={styles.wrapper}>
-          <AccountInfo balance={account.balance} savings={account.savings} />
-          <AccountButtons userId={userId} accountId={account.id} />
+          <AccountInfo
+            balance={account.balance}
+            savings={account.savings}
+            currentUser={currentUser}
+          />
+          <AccountButtons />
         </View>
       </ScrollView>
 
       <TransactionsList
         account={account}
         transactions={transactions}
-        userId={userId}
+        userId={currentUser.id}
         onDelete={onDelete}
       />
     </View>
   );
 };
-export default Home;
+export default Account;

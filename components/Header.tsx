@@ -6,10 +6,9 @@ import {Page} from '../shared/types';
 
 interface IProps {
   currentPage: Page;
-  userId?: string;
 }
 
-const Header = ({currentPage, userId}: IProps) => {
+const Header = ({currentPage}: IProps) => {
   switch (currentPage) {
     case Page.SELECT_USER:
       return (
@@ -31,7 +30,7 @@ const Header = ({currentPage, userId}: IProps) => {
     case Page.UPDATE:
       return (
         <View style={[styles.header, styles.backHeader]}>
-          <Link to={userId ? `/account/${userId}` : '/'}>
+          <Link to="/account">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>
               <Text style={styles.headerText}>Назад</Text>

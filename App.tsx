@@ -4,20 +4,20 @@ import SelectUser from './pages/SelectUser';
 import Account from './pages/Account';
 import Update from './pages/Update';
 import {NativeRouter, Routes, Route} from 'react-router-native';
+import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 const App = () => {
   return (
     <NativeRouter>
       <SafeAreaView>
-        <StatusBar />
-        <Routes>
-          <Route path="/" element={<SelectUser />} />
-          <Route path="/account/:userId" element={<Account />} />
-          <Route
-            path="/account/:userId/update/:action/:id"
-            element={<Update />}
-          />
-        </Routes>
+        <CurrentUserContextProvider>
+          <StatusBar />
+          <Routes>
+            <Route path="/" element={<SelectUser />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/account/update/:action" element={<Update />} />
+          </Routes>
+        </CurrentUserContextProvider>
       </SafeAreaView>
     </NativeRouter>
   );

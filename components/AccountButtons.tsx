@@ -3,20 +3,15 @@ import {Pressable, Text, View} from 'react-native';
 import styles from '../shared/styles';
 import {useNavigate} from 'react-router-native';
 
-interface IProps {
-  accountId: string;
-  userId: string;
-}
-
-const AccountButtons = ({userId, accountId}: IProps) => {
+const AccountButtons = () => {
   const navigate = useNavigate();
 
   const addSalary = () => {
-    navigate(`/account/${userId}/update/salary/${accountId}`);
+    navigate('/account/update/salary');
   };
 
   const addExpense = () => {
-    navigate(`/account/${userId}/update/expense/${accountId}`);
+    navigate('/account/update/expense');
   };
 
   return (

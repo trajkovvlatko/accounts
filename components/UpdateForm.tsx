@@ -42,7 +42,7 @@ const UpdateForm = ({userId, action}: IProps) => {
         const savings = account.savings + account.balance;
         await updateAccount({id: account.id, userId, balance, savings});
       }
-      navigate(`/account/${userId}`);
+      navigate('/account');
     } catch (e: any) {
       console.error(e);
       Alert.alert('Error', e.message);

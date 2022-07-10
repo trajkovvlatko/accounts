@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useNavigate} from 'react-router-native';
 import {Pressable, ScrollView, Text, View} from 'react-native';
 import Header from '../components/Header';
 import styles from '../shared/styles';
-import {Page} from '../shared/types';
-import useUser from '../hooks/useUser';
+import {IUser, Page} from '../shared/types';
+import useUsers from '../hooks/useUsers';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 const SelectUser = () => {
   const navigate = useNavigate();
-  const {users} = useUser();
+  const {users} = useUsers();
+  const {setCurrentUser} = useContext(CurrentUserContext);
 
-  const selectUser = (userId: string) => {
-    navigate(`/account/${userId}`);
+  const selectUser = (user: IUser) => {
+    setCurrentUser(user);
+    navigate('/account');
   };
+
+  if (!users || users.length === 0) {
+    return null;
+  }
 
   return (
     <View style={styles.updateContainer}>
@@ -25,7 +32,7 @@ const SelectUser = () => {
             return (
               <Pressable
                 style={styles.selectAccountButtonWrapper}
-                onPress={() => selectUser(user.id)}
+                onPress={() => selectUser(user)}
                 key={`user-${user.id}`}>
                 <View style={styles.addExpenseButton}>
                   <Text style={styles.addExpenseButtonText}>{user.name}</Text>
