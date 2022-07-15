@@ -1,4 +1,4 @@
-import supabaseClient from './supabaseClient';
+import supabaseClient, {tables} from './supabaseClient';
 
 export const updateAccount = async ({
   id,
@@ -17,7 +17,7 @@ export const updateAccount = async ({
   }
 
   return await supabaseClient
-    .from('accounts')
+    .from(tables.accounts)
     .update({balance, savings})
     .match({id, user_id: userId});
 };
@@ -36,7 +36,7 @@ export const addTransaction = async ({
     return null;
   }
 
-  return await supabaseClient.from('transactions').insert({
+  return await supabaseClient.from(tables.transactions).insert({
     account_id: id,
     user_id: userId,
     amount,
@@ -56,7 +56,7 @@ export const deleteTransaction = async ({
   }
 
   return await supabaseClient
-    .from('transactions')
+    .from(tables.transactions)
     .delete()
     .match({id, user_id: userId});
 };

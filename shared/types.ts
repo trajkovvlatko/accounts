@@ -23,3 +23,8 @@ export enum Page {
   ACCOUNT,
   UPDATE,
 }
+
+export enum ENV {
+  'dev',
+  'prod',
+}

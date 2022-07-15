@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
-import supabaseClient from '../lib/supabaseClient';
+import supabaseClient, {tables} from '../lib/supabaseClient';
 import {ITransaction} from '../shared/types';
 
 interface IProps {
@@ -23,7 +23,7 @@ const useTransactions = ({userId}: IProps) => {
     }
 
     const {data, error} = await supabaseClient
-      .from('transactions')
+      .from(tables.transactions)
       .select()
       .match({user_id: userId})
       .limit(100)
