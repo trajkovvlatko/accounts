@@ -18,7 +18,7 @@ const Header = ({currentPage}: IProps) => {
       );
     case Page.ACCOUNT:
       return (
-        <View style={[styles.header, styles.backHeader]}>
+        <View style={styles.header}>
           <Link to="/">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>
@@ -29,7 +29,7 @@ const Header = ({currentPage}: IProps) => {
       );
     case Page.UPDATE:
       return (
-        <View style={[styles.header, styles.backHeader]}>
+        <View style={styles.header}>
           <Link to="/account">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>

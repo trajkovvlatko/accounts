@@ -38,12 +38,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 45,
     backgroundColor: primaryColor,
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  backHeader: {
-    alignItems: 'flex-start',
-    paddingLeft: padding,
+    paddingHorizontal: padding,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   headerIcon: {
     color: secondaryColor,
