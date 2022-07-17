@@ -4,15 +4,16 @@ import useAccount from '../hooks/useAccount';
 import {Alert, Pressable, Text, TextInput} from 'react-native';
 import {addTransaction, updateAccount} from '../lib/queries';
 import styles from '../shared/styles';
-import {TAction} from '../shared/types';
+import {AccountType, TAction} from '../shared/types';
+import AccountPicker from './AccountPicker';
 
 interface IProps {
   userId: string;
   action: TAction;
 }
-
 const UpdateForm = ({userId, action}: IProps) => {
   const [amount, setAmount] = useState<number>(0);
+  const [selectedAccount, setSelectedAccount] = useState<AccountType>(AccountType.BALANCE);
   const updatingRef = useRef(false);
   const {account} = useAccount({userId});
   const navigate = useNavigate();
@@ -27,29 +28,24 @@ const UpdateForm = ({userId, action}: IProps) => {
       return;
     }
 
-    try {
-      updatingRef.current = true;
-      if (action === 'remove') {
-        const balance = account.balance - amount;
-        const savings = account.savings;
-        await Promise.all([
-          updateAccount({id: account.id, userId, balance, savings}),
-          addTransaction({id: account.id, userId, amount}),
-        ]);
-      } else if (action === 'add') {
-        const balance = account.balance + amount;
-        const savings = account.savings;
-        await updateAccount({id: account.id, userId, balance, savings});
-      } else if (action === 'transfer') {
-        const balance = amount;
-        const savings = account.savings + account.balance;
-        await updateAccount({id: account.id, userId, balance, savings});
-      }
-      navigate('/account');
-    } catch (e: any) {
-      console.error(e);
-      Alert.alert('Error', e.message);
+    updatingRef.current = true;
+    if (action === 'remove') {
+      const balance = selectedAccount === AccountType.BALANCE ? account.balance - amount : account.balance;
+      const savings = selectedAccount === AccountType.SAVINGS ? account.savings - amount : account.savings;
+      await Promise.all([
+        updateAccount({id: account.id, userId, balance, savings}),
+        addTransaction({id: account.id, userId, amount}),
+      ]);
+    } else if (action === 'add') {
+      const balance = selectedAccount === AccountType.BALANCE ? account.balance + amount : account.balance;
+      const savings = selectedAccount === AccountType.SAVINGS ? account.savings + amount : account.savings;
+      await updateAccount({id: account.id, userId, balance, savings});
+    } else if (action === 'transfer') {
+      const balance = amount;
+      const savings = account.savings + account.balance;
+      await updateAccount({id: account.id, userId, balance, savings});
     }
+    navigate('/account');
   };
 
   const onChangeText = (value: string) => {
@@ -59,6 +55,7 @@ const UpdateForm = ({userId, action}: IProps) => {
 
   return (
     <>
+      {action !== 'transfer' && <AccountPicker selectedAccount={selectedAccount} onPress={setSelectedAccount} />}
       <Text style={styles.text}>Сума</Text>
       <TextInput
         style={styles.textInput}

@@ -16,21 +16,10 @@ export const updateAccount = async ({
     return null;
   }
 
-  return await supabaseClient
-    .from(tables.accounts)
-    .update({balance, savings})
-    .match({id, user_id: userId});
+  return await supabaseClient.from(tables.accounts).update({balance, savings}).match({id, user_id: userId});
 };
 
-export const addTransaction = async ({
-  id,
-  userId,
-  amount,
-}: {
-  id: string;
-  userId: string;
-  amount: number;
-}) => {
+export const addTransaction = async ({id, userId, amount}: {id: string; userId: string; amount: number}) => {
   if (!supabaseClient) {
     console.log('No supabaseClient');
     return null;
@@ -43,20 +32,11 @@ export const addTransaction = async ({
   });
 };
 
-export const deleteTransaction = async ({
-  id,
-  userId,
-}: {
-  id: string;
-  userId: string;
-}) => {
+export const deleteTransaction = async ({id, userId}: {id: string; userId: string}) => {
   if (!supabaseClient) {
     console.log('No supabaseClient');
     return null;
   }
 
-  return await supabaseClient
-    .from(tables.transactions)
-    .delete()
-    .match({id, user_id: userId});
+  return await supabaseClient.from(tables.transactions).delete().match({id, user_id: userId});
 };

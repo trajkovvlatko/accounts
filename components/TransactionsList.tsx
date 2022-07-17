@@ -12,12 +12,7 @@ interface IProps {
   onDelete: () => void;
 }
 
-const TransactionsList = ({
-  account,
-  transactions,
-  userId,
-  onDelete,
-}: IProps) => {
+const TransactionsList = ({account, transactions, userId, onDelete}: IProps) => {
   return (
     <View style={styles.transactionsWrapper}>
       <Text style={styles.title}>Последни промени</Text>
@@ -28,13 +23,7 @@ const TransactionsList = ({
         stickyHeaderIndices={[0]}
         renderItem={row => {
           return (
-            <TransactionRow
-              onDelete={onDelete}
-              account={account}
-              userId={userId}
-              item={row.item}
-              index={row.index}
-            />
+            <TransactionRow onDelete={onDelete} account={account} userId={userId} item={row.item} index={row.index} />
           );
         }}
         keyExtractor={item => item.id}

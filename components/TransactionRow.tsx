@@ -36,19 +36,12 @@ const TransactionRow = ({account, item, userId, onDelete, index}: IProps) => {
     onDelete();
   };
 
-  const rowStyles = [
-    styles.transactionsRow,
-    index % 2 === 0 ? styles.transactionsEvenRow : {},
-  ];
+  const rowStyles = [styles.transactionsRow, index % 2 === 0 ? styles.transactionsEvenRow : {}];
 
   return (
     <View key={`transaction-${item.id}`} style={rowStyles}>
-      <Text style={styles.transactionsRowAmount}>
-        {currencyFormat(item.amount)}
-      </Text>
-      <Text style={styles.transactionsRowDate}>
-        {toDateString(item.created_at)}
-      </Text>
+      <Text style={styles.transactionsRowAmount}>{currencyFormat(item.amount)}</Text>
+      <Text style={styles.transactionsRowDate}>{toDateString(item.created_at)}</Text>
       <Pressable onPress={showAlert}>
         <Text style={styles.deleteText}>&times;</Text>
       </Pressable>

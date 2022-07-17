@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: primaryColor,
     alignItems: 'center',
-    paddingHorizontal: padding,
+    paddingHorizontal: padding / 2,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
@@ -133,8 +133,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   transactionsWrapper: {
-    height: '50%',
-    paddingBottom: padding,
+    height: '35%',
     paddingHorizontal: padding,
   },
   transactionsHeader: {
@@ -205,8 +204,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  selection: {
-    marginRight: padding,
+  accountPicker: {
+    paddingBottom: padding,
+    paddingTop: padding / 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  accountPickerItem: {
+    marginRight: padding / 2,
+  },
+  accountPickerItemSelected: {
+    fontWeight: extraBold,
+    color: primaryColor,
+    textDecorationLine: 'underline',
   },
 });
 
