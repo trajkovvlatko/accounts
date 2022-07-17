@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: secondaryColor,
   },
+  fullPage: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width - padding * 2,
+    backgroundColor: secondaryColor,
+  },
   scrollView: {
     height: '50%',
   },
@@ -72,6 +77,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CCC',
     borderBottomWidth: 1,
     paddingBottom: 12,
+    alignItems: 'center',
   },
   text: {
     fontSize,

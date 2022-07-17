@@ -5,6 +5,7 @@ import Account from './pages/Account';
 import Update from './pages/Update';
 import {NativeRouter, Routes, Route} from 'react-router-native';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
+import EditAccount from './pages/EditAccount';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<SelectUser />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/account/edit" element={<EditAccount />} />
             <Route path="/account/update/:action" element={<Update />} />
           </Routes>
         </CurrentUserContextProvider>

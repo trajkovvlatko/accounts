@@ -4,12 +4,14 @@ import {Link} from 'react-router-native';
 import styles from '../shared/styles';
 import {Page} from '../shared/types';
 
-interface IProps {
-  currentPage: Page;
-}
+type IProps =
+  | {currentPage: Page.SELECT_USER}
+  | {currentPage: Page.ACCOUNT}
+  | {currentPage: Page.UPDATE}
+  | {currentPage: Page.EDIT_ACCOUNT};
 
-const Header = ({currentPage}: IProps) => {
-  switch (currentPage) {
+const Header = (props: IProps) => {
+  switch (props.currentPage) {
     case Page.SELECT_USER:
       return (
         <View style={styles.header}>
@@ -23,6 +25,20 @@ const Header = ({currentPage}: IProps) => {
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>
               <Text style={styles.headerText}>Одбери друга сметка</Text>
+            </View>
+          </Link>
+          <Link to="/account/edit">
+            <Text style={styles.headerText}>Измени</Text>
+          </Link>
+        </View>
+      );
+    case Page.EDIT_ACCOUNT:
+      return (
+        <View style={styles.header}>
+          <Link to="/account">
+            <View style={styles.headerLink}>
+              <Text style={styles.headerIcon}>{'<'}</Text>
+              <Text style={styles.headerText}>Назад</Text>
             </View>
           </Link>
         </View>
