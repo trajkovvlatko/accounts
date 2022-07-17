@@ -29,3 +29,8 @@ export enum ENV {
   dev,
   prod,
 }
+
+export enum AccountType {
+  BALANCE,
+  SAVINGS,
+}

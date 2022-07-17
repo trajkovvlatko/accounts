@@ -204,8 +204,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  selection: {
-    marginRight: padding,
+  accountPicker: {
+    paddingBottom: padding,
+    paddingTop: padding / 2,
+    flexDirection: 'row',
+  },
+  accountPickerItem: {
+    marginRight: padding / 2,
+  },
+  accountPickerItemSelected: {
+    fontWeight: extraBold,
+    color: primaryColor,
+    textDecorationLine: 'underline',
   },
 });
 

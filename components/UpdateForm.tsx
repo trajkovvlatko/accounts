@@ -4,15 +4,16 @@ import useAccount from '../hooks/useAccount';
 import {Alert, Pressable, Text, TextInput} from 'react-native';
 import {addTransaction, updateAccount} from '../lib/queries';
 import styles from '../shared/styles';
-import {TAction} from '../shared/types';
+import {AccountType, TAction} from '../shared/types';
+import AccountPicker from './AccountPicker';
 
 interface IProps {
   userId: string;
   action: TAction;
 }
-
 const UpdateForm = ({userId, action}: IProps) => {
   const [amount, setAmount] = useState<number>(0);
+  const [selectedAccount, setSelectedAccount] = useState<AccountType>(AccountType.BALANCE);
   const updatingRef = useRef(false);
   const {account} = useAccount({userId});
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ const UpdateForm = ({userId, action}: IProps) => {
 
   return (
     <>
+      {action !== 'transfer' && <AccountPicker selectedAccount={selectedAccount} onPress={setSelectedAccount} />}
       <Text style={styles.text}>Сума</Text>
       <TextInput
         style={styles.textInput}
