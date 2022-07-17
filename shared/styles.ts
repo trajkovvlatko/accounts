@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
   },
   selectAccountButtonWrapper: {
     padding: padding,
+    paddingTop: 0,
+    paddingBottom: padding / 2,
     width: '100%',
   },
   header: {
