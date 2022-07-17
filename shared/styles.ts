@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: primaryColor,
     alignItems: 'center',
-    paddingHorizontal: padding,
+    paddingHorizontal: padding / 2,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
     paddingBottom: padding,
     paddingTop: padding / 2,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   accountPickerItem: {
     marginRight: padding / 2,
