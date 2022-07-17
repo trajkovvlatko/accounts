@@ -34,21 +34,12 @@ const Account = () => {
         <Header currentPage={Page.ACCOUNT} />
 
         <View style={styles.wrapper}>
-          <AccountInfo
-            balance={account.balance}
-            savings={account.savings}
-            currentUser={currentUser}
-          />
+          <AccountInfo balance={account.balance} savings={account.savings} currentUser={currentUser} />
           <AccountButtons />
         </View>
       </ScrollView>
 
-      <TransactionsList
-        account={account}
-        transactions={transactions}
-        userId={currentUser.id}
-        onDelete={onDelete}
-      />
+      <TransactionsList account={account} transactions={transactions} userId={currentUser.id} onDelete={onDelete} />
     </View>
   );
 };

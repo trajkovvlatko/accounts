@@ -22,10 +22,7 @@ const useAccount = ({userId}: IProps) => {
       return;
     }
 
-    const {data, error} = await supabaseClient
-      .from(tables.accounts)
-      .select()
-      .match({user_id: userId});
+    const {data, error} = await supabaseClient.from(tables.accounts).select().match({user_id: userId});
 
     if (data) {
       setAccount(data[0]);
