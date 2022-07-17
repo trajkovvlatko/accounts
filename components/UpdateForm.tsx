@@ -28,29 +28,24 @@ const UpdateForm = ({userId, action}: IProps) => {
       return;
     }
 
-    try {
-      updatingRef.current = true;
-      if (action === 'remove') {
-        const balance = account.balance - amount;
-        const savings = account.savings;
-        await Promise.all([
-          updateAccount({id: account.id, userId, balance, savings}),
-          addTransaction({id: account.id, userId, amount}),
-        ]);
-      } else if (action === 'add') {
-        const balance = account.balance + amount;
-        const savings = account.savings;
-        await updateAccount({id: account.id, userId, balance, savings});
-      } else if (action === 'transfer') {
-        const balance = amount;
-        const savings = account.savings + account.balance;
-        await updateAccount({id: account.id, userId, balance, savings});
-      }
-      navigate('/account');
-    } catch (e: any) {
-      console.error(e);
-      Alert.alert('Error', e.message);
+    updatingRef.current = true;
+    if (action === 'remove') {
+      const balance = selectedAccount === AccountType.BALANCE ? account.balance - amount : account.balance;
+      const savings = selectedAccount === AccountType.SAVINGS ? account.savings - amount : account.savings;
+      await Promise.all([
+        updateAccount({id: account.id, userId, balance, savings}),
+        addTransaction({id: account.id, userId, amount}),
+      ]);
+    } else if (action === 'add') {
+      const balance = selectedAccount === AccountType.BALANCE ? account.balance + amount : account.balance;
+      const savings = selectedAccount === AccountType.SAVINGS ? account.savings + amount : account.savings;
+      await updateAccount({id: account.id, userId, balance, savings});
+    } else if (action === 'transfer') {
+      const balance = amount;
+      const savings = account.savings + account.balance;
+      await updateAccount({id: account.id, userId, balance, savings});
     }
+    navigate('/account');
   };
 
   const onChangeText = (value: string) => {
