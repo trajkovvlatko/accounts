@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import {currencyFormat} from '../shared/helpers';
 import styles from '../shared/styles';
@@ -12,7 +12,7 @@ interface IProps {
 
 const AccountInfo = ({balance, savings, currentUser}: IProps) => {
   return (
-    <Fragment>
+    <>
       <Text style={styles.title}>Моментална состојба - {currentUser.name}</Text>
       <View style={styles.balanceWrapper}>
         <Text style={styles.text}>Сметка:</Text>
@@ -22,7 +22,7 @@ const AccountInfo = ({balance, savings, currentUser}: IProps) => {
         <Text style={styles.text}>Заштеда:</Text>
         <Text style={styles.boldText}>{currencyFormat(savings)}</Text>
       </View>
-    </Fragment>
+    </>
   );
 };
 

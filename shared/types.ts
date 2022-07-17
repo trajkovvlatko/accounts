@@ -22,4 +22,10 @@ export enum Page {
   SELECT_USER,
   ACCOUNT,
   UPDATE,
+  EDIT_ACCOUNT,
+}
+
+export enum ENV {
+  dev,
+  prod,
 }

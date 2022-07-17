@@ -8,8 +8,8 @@ interface IProps {
   currentPage: Page;
 }
 
-const Header = ({currentPage}: IProps) => {
-  switch (currentPage) {
+const Header = (props: IProps) => {
+  switch (props.currentPage) {
     case Page.SELECT_USER:
       return (
         <View style={styles.header}>
@@ -18,18 +18,32 @@ const Header = ({currentPage}: IProps) => {
       );
     case Page.ACCOUNT:
       return (
-        <View style={[styles.header, styles.backHeader]}>
+        <View style={styles.header}>
           <Link to="/">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>
               <Text style={styles.headerText}>Одбери друга сметка</Text>
             </View>
           </Link>
+          <Link to="/account/edit">
+            <Text style={styles.headerText}>Измени</Text>
+          </Link>
+        </View>
+      );
+    case Page.EDIT_ACCOUNT:
+      return (
+        <View style={styles.header}>
+          <Link to="/account">
+            <View style={styles.headerLink}>
+              <Text style={styles.headerIcon}>{'<'}</Text>
+              <Text style={styles.headerText}>Назад</Text>
+            </View>
+          </Link>
         </View>
       );
     case Page.UPDATE:
       return (
-        <View style={[styles.header, styles.backHeader]}>
+        <View style={styles.header}>
           <Link to="/account">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>

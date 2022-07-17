@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-native';
 import useAccount from '../hooks/useAccount';
 import {Alert, Pressable, Text, TextInput} from 'react-native';
 import {addTransaction, updateAccount} from '../lib/queries';
-import supabaseClient from '../lib/supabaseClient';
 import styles from '../shared/styles';
 import {TAction} from '../shared/types';
 
@@ -19,7 +18,7 @@ const UpdateForm = ({userId, action}: IProps) => {
   const navigate = useNavigate();
 
   const update = async () => {
-    if (!supabaseClient || !account || updatingRef.current) {
+    if (!account || updatingRef.current) {
       return;
     }
 

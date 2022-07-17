@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: secondaryColor,
   },
+  fullPage: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width - padding * 2,
+    backgroundColor: secondaryColor,
+  },
   scrollView: {
     height: '50%',
   },
@@ -38,12 +43,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 45,
     backgroundColor: primaryColor,
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  backHeader: {
-    alignItems: 'flex-start',
-    paddingLeft: padding,
+    paddingHorizontal: padding,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   headerIcon: {
     color: secondaryColor,
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CCC',
     borderBottomWidth: 1,
     paddingBottom: 12,
+    alignItems: 'center',
   },
   text: {
     fontSize,
