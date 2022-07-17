@@ -27,7 +27,7 @@ const SelectUser = () => {
         <Header currentPage={Page.SELECT_USER} />
 
         <View style={styles.selectAccountWrapper}>
-          <Text style={styles.title}>Одбери сметка</Text>
+          <Text style={styles.title}>Одбери корисник</Text>
           {users.map(user => {
             return (
               <Pressable

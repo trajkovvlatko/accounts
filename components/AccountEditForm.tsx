@@ -63,12 +63,12 @@ const AccountEditForm = ({account, currentUser}: IProps) => {
         />
       </View>
       <View style={styles.buttonsWrapper}>
-        <Link to="/account" style={styles.addSalaryButton}>
-          <Text style={styles.addSalaryButtonText}>Откажи</Text>
-        </Link>
         <Pressable onPress={update} style={styles.addExpenseButton}>
           <Text style={styles.addExpenseButtonText}>Зачувај</Text>
         </Pressable>
+        <Link to="/account" style={styles.addSalaryButton}>
+          <Text style={styles.addSalaryButtonText}>Откажи</Text>
+        </Link>
       </View>
     </View>
   );

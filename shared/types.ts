@@ -16,7 +16,7 @@ export interface IUser {
   name: string;
 }
 
-export type TAction = 'expense' | 'savings';
+export type TAction = 'add' | 'remove' | 'transfer';
 
 export enum Page {
   SELECT_USER,

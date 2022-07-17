@@ -11,6 +11,9 @@ const extraBold = '900';
 const padding = 32;
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+  },
   homeContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: secondaryColor,
   },
   scrollView: {
-    height: '50%',
+    height: '65%',
   },
   wrapper: {
     padding,
@@ -35,9 +38,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   selectAccountButtonWrapper: {
-    paddingTop: padding,
+    padding: padding,
     width: '100%',
-    alignItems: 'center',
   },
   header: {
     flex: 1,
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: -8,
   },
   buttonsWrapper: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     height: 42,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '48%',
+    marginTop: padding / 2,
   },
   addSalaryButtonText: {
     color: primaryColor,
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     height: 42,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '48%',
+    marginTop: padding / 2,
   },
   addExpenseButtonText: {
     color: secondaryColor,
@@ -183,7 +185,6 @@ const styles = StyleSheet.create({
   },
   updateWrapper: {
     padding,
-    paddingTop: 200,
   },
   textInput: {
     borderWidth: 1,
@@ -203,6 +204,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+  },
+  selection: {
+    marginRight: padding,
   },
 });
 

@@ -1,27 +1,20 @@
 import React from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from '../shared/styles';
-import {useNavigate} from 'react-router-native';
+import {Link} from 'react-router-native';
 
 const AccountButtons = () => {
-  const navigate = useNavigate();
-
-  const addSalary = () => {
-    navigate('/account/update/salary');
-  };
-
-  const addExpense = () => {
-    navigate('/account/update/expense');
-  };
-
   return (
     <View style={styles.buttonsWrapper}>
-      <Pressable onPress={addSalary} style={styles.addSalaryButton}>
+      <Link to="/account/update/remove" style={styles.addExpenseButton}>
+        <Text style={styles.addExpenseButtonText}>Одземи од сметка</Text>
+      </Link>
+      <Link to="/account/update/add" style={styles.addExpenseButton}>
+        <Text style={styles.addExpenseButtonText}>Додади на сметка</Text>
+      </Link>
+      <Link to="/account/update/transfer" style={styles.addSalaryButton}>
         <Text style={styles.addSalaryButtonText}>Внеси плата</Text>
-      </Pressable>
-      <Pressable onPress={addExpense} style={styles.addExpenseButton}>
-        <Text style={styles.addExpenseButtonText}>Внеси трошоци</Text>
-      </Pressable>
+      </Link>
     </View>
   );
 };

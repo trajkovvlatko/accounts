@@ -22,7 +22,7 @@ const Header = (props: IProps) => {
           <Link to="/">
             <View style={styles.headerLink}>
               <Text style={styles.headerIcon}>{'<'}</Text>
-              <Text style={styles.headerText}>Одбери друга сметка</Text>
+              <Text style={styles.headerText}>Одбери друг корисник</Text>
             </View>
           </Link>
           <Link to="/account/edit">

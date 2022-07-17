@@ -7,9 +7,23 @@ import UpdateForm from '../components/UpdateForm';
 import {Page, TAction} from '../shared/types';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
+const getLabel = (action: TAction): string => {
+  switch (action) {
+    case 'remove':
+      return 'Одземи од сметка';
+    case 'add':
+      return 'Додади на сметка';
+    case 'transfer':
+      return 'Внеси плата';
+    default:
+      return '';
+  }
+};
+
 const Update = () => {
   const {currentUser} = useContext(CurrentUserContext);
-  const {action} = useParams();
+  const params = useParams();
+  const action = params.action as TAction;
 
   if (!currentUser) {
     return null;
@@ -22,10 +36,9 @@ const Update = () => {
 
         <View style={styles.updateWrapper}>
           <Text style={styles.title}>
-            {action === 'expense' ? 'Внеси трошоци' : 'Внеси плата'} -{' '}
-            {currentUser.name}
+            {getLabel(action)} - {currentUser.name}
           </Text>
-          <UpdateForm userId={currentUser.id} action={action as TAction} />
+          <UpdateForm userId={currentUser.id} action={action} />
         </View>
       </ScrollView>
     </View>

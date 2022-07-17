@@ -1,5 +1,5 @@
-import React, {Fragment, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-native';
+import React, {useRef, useState} from 'react';
+import {Link, useNavigate} from 'react-router-native';
 import useAccount from '../hooks/useAccount';
 import {Alert, Pressable, Text, TextInput} from 'react-native';
 import {addTransaction, updateAccount} from '../lib/queries';
@@ -29,14 +29,18 @@ const UpdateForm = ({userId, action}: IProps) => {
 
     try {
       updatingRef.current = true;
-      if (action === 'expense') {
+      if (action === 'remove') {
         const balance = account.balance - amount;
         const savings = account.savings;
         await Promise.all([
           updateAccount({id: account.id, userId, balance, savings}),
           addTransaction({id: account.id, userId, amount}),
         ]);
-      } else {
+      } else if (action === 'add') {
+        const balance = account.balance + amount;
+        const savings = account.savings;
+        await updateAccount({id: account.id, userId, balance, savings});
+      } else if (action === 'transfer') {
         const balance = amount;
         const savings = account.savings + account.balance;
         await updateAccount({id: account.id, userId, balance, savings});
@@ -54,7 +58,7 @@ const UpdateForm = ({userId, action}: IProps) => {
   };
 
   return (
-    <Fragment>
+    <>
       <Text style={styles.text}>Сума</Text>
       <TextInput
         style={styles.textInput}
@@ -65,7 +69,10 @@ const UpdateForm = ({userId, action}: IProps) => {
       <Pressable onPress={update} style={styles.saveButton}>
         <Text style={styles.addExpenseButtonText}>Зачувај</Text>
       </Pressable>
-    </Fragment>
+      <Link to="/account" style={styles.addSalaryButton}>
+        <Text style={styles.addSalaryButtonText}>Откажи</Text>
+      </Link>
+    </>
   );
 };
 
