@@ -26,11 +26,6 @@ export enum Page {
 }
 
 export enum ENV {
-  'dev',
-  'prod',
-}
-
-export enum Mode {
-  'View',
-  'Edit',
+  dev,
+  prod,
 }

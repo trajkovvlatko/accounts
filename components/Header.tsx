@@ -4,11 +4,9 @@ import {Link} from 'react-router-native';
 import styles from '../shared/styles';
 import {Page} from '../shared/types';
 
-type IProps =
-  | {currentPage: Page.SELECT_USER}
-  | {currentPage: Page.ACCOUNT}
-  | {currentPage: Page.UPDATE}
-  | {currentPage: Page.EDIT_ACCOUNT};
+interface IProps {
+  currentPage: Page;
+}
 
 const Header = (props: IProps) => {
   switch (props.currentPage) {
