@@ -133,8 +133,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   transactionsWrapper: {
-    height: '50%',
-    paddingBottom: padding,
+    height: '35%',
     paddingHorizontal: padding,
   },
   transactionsHeader: {
