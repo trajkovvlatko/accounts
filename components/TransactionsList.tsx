@@ -21,11 +21,9 @@ const TransactionsList = ({account, transactions, userId, onDelete}: IProps) => 
         ListHeaderComponent={TransactionsHeader}
         scrollEnabled={true}
         stickyHeaderIndices={[0]}
-        renderItem={row => {
-          return (
-            <TransactionRow onDelete={onDelete} account={account} userId={userId} item={row.item} index={row.index} />
-          );
-        }}
+        renderItem={row => (
+          <TransactionRow onDelete={onDelete} account={account} userId={userId} item={row.item} index={row.index} />
+        )}
         keyExtractor={item => item.id}
       />
     </View>

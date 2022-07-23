@@ -11,3 +11,5 @@ export const toDateString = (val: string): string => {
 export const currencyFormat = (num: number): string => {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
 };
+
+export const stringToIntWithDefault = (value: string): number => (value ? parseInt(value, 10) : 0);

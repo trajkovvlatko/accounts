@@ -14,13 +14,10 @@ const defaultValue = {
 
 export const CurrentUserContext = createContext<IContext>(defaultValue);
 
-export const CurrentUserContextProvider = ({children}: {children: ReactNode}) => {
+const CurrentUserContextProvider = ({children}: {children: ReactNode}) => {
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
-  const value = {
-    currentUser,
-    setCurrentUser,
-  };
+  const value = {currentUser, setCurrentUser};
 
   return <CurrentUserContext.Provider value={value}>{children}</CurrentUserContext.Provider>;
 };

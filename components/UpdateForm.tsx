@@ -6,6 +6,7 @@ import {addTransaction, updateAccount} from '../lib/queries';
 import styles from '../shared/styles';
 import {AccountType, TAction} from '../shared/types';
 import AccountPicker from './AccountPicker';
+import {stringToIntWithDefault} from '../shared/helpers';
 
 interface IProps {
   userId: string;
@@ -45,13 +46,11 @@ const UpdateForm = ({userId, action}: IProps) => {
       const savings = account.savings + account.balance;
       await updateAccount({id: account.id, userId, balance, savings});
     }
+
     navigate('/account');
   };
 
-  const onChangeText = (value: string) => {
-    const num = value ? parseInt(value, 10) : 0;
-    setAmount(num);
-  };
+  const onChangeText = (value: string) => setAmount(stringToIntWithDefault(value));
 
   return (
     <>

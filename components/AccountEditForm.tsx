@@ -5,6 +5,7 @@ import styles from '../shared/styles';
 import {IAccount, IUser} from '../shared/types';
 import {updateAccount} from '../lib/queries';
 import {useNavigate} from 'react-router-native';
+import {stringToIntWithDefault} from '../shared/helpers';
 
 interface IProps {
   account: IAccount;
@@ -17,15 +18,8 @@ const AccountEditForm = ({account, currentUser}: IProps) => {
   const [newSavings, setNewSavings] = useState<number>(savings);
   const navigate = useNavigate();
 
-  const onUpdateBalance = (value: string) => {
-    const num = value ? parseInt(value, 10) : 0;
-    setNewBalance(num);
-  };
-
-  const onUpdateSavings = (value: string) => {
-    const num = value ? parseInt(value, 10) : 0;
-    setNewSavings(num);
-  };
+  const onUpdateBalance = (value: string) => setNewBalance(stringToIntWithDefault(value));
+  const onUpdateSavings = (value: string) => setNewSavings(stringToIntWithDefault(value));
 
   const update = async () => {
     if (newBalance >= 0 && newSavings >= 0) {

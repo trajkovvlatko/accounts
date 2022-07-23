@@ -9,23 +9,15 @@ interface IProps {
 }
 
 const AccountPicker = ({selectedAccount, onPress}: IProps) => {
+  const textStyles = [styles.text, styles.accountPickerItemSelected];
+
   return (
     <View style={styles.accountPicker}>
       <Pressable style={styles.accountPickerItem} onPress={() => onPress(AccountType.BALANCE)}>
-        <Text
-          style={
-            selectedAccount === AccountType.BALANCE ? [styles.text, styles.accountPickerItemSelected] : styles.text
-          }>
-          Сметка
-        </Text>
+        <Text style={selectedAccount === AccountType.BALANCE ? textStyles : styles.text}>Сметка</Text>
       </Pressable>
       <Pressable style={styles.accountPickerItem} onPress={() => onPress(AccountType.SAVINGS)}>
-        <Text
-          style={
-            selectedAccount === AccountType.SAVINGS ? [styles.text, styles.accountPickerItemSelected] : styles.text
-          }>
-          Заштеда
-        </Text>
+        <Text style={selectedAccount === AccountType.SAVINGS ? textStyles : styles.text}>Заштеда</Text>
       </Pressable>
     </View>
   );
